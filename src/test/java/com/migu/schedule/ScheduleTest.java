@@ -137,7 +137,7 @@ public class ScheduleTest
         schedule.registerNode(7);
         schedule.registerNode(1);
         schedule.registerNode(6);
-        
+
         schedule.addTask(1, 2);
         schedule.addTask(2, 14);
         schedule.addTask(3, 4);
@@ -145,26 +145,26 @@ public class ScheduleTest
         schedule.addTask(5, 6);
         schedule.addTask(6, 5);
         schedule.addTask(7, 3);
-        
+
         actual = schedule.scheduleTask(10);
-        
+
         Assert.assertEquals(ReturnCodeKeys.E013, actual);
-        
+
         List<TaskInfo> tasks = new ArrayList<TaskInfo>();
-        
+
         actual = schedule.queryTaskStatus(tasks);
-        
+
         Assert.assertEquals(ReturnCodeKeys.E015, actual);
-        
-        int expecteds[][] = { 
-            {1, 7}, 
-            {2, 6}, 
-            {3, 7}, 
-            {4, 1}, 
-            {5, 7}, 
-            {6, 7}, 
+
+        int expecteds[][] = {
+            {1, 7},
+            {2, 6},
+            {3, 7},
+            {4, 1},
+            {5, 7},
+            {6, 7},
             {7, 6}};
-        
+
         assertPlanEqual(expecteds, tasks);
     }
     
@@ -174,48 +174,48 @@ public class ScheduleTest
         int actual = schedule.init();
         actual = schedule.registerNode(1);
         actual = schedule.registerNode(3);
-        
+
         actual = schedule.addTask(1, 30);
         actual = schedule.addTask(2, 30);
         actual = schedule.addTask(3, 30);
         actual = schedule.addTask(4, 30);
-        
+
         actual = schedule.scheduleTask(10);
-        
+
         Assert.assertEquals(ReturnCodeKeys.E013, actual);
-        
+
         List<TaskInfo> tasks = new ArrayList<TaskInfo>();
-        
+
         actual = schedule.queryTaskStatus(tasks);
-        
+
         Assert.assertEquals(ReturnCodeKeys.E015, actual);
-        
-        int expecteds[][] = { 
-            {1, 1}, 
-            {2, 1}, 
-            {3, 3}, 
+
+        int expecteds[][] = {
+            {1, 1},
+            {2, 1},
+            {3, 3},
             {4, 3}};
-        
+
         assertPlanEqual(expecteds, tasks);
     }
-    
+
     @Test
     public void testScheduleTask3()
     {
         int actual = schedule.init();
         schedule.registerNode(1);
         schedule.registerNode(2);
-        
+
         schedule.addTask(1, 15);
         schedule.addTask(2, 10);
         schedule.addTask(3, 30);
         schedule.addTask(4, 35);
         schedule.addTask(5, 125);
         schedule.addTask(6, 115);
-        
+
         actual = schedule.scheduleTask(10);
         schedule.deleteTask(5);
-        
+
         actual = schedule.scheduleTask(10);
         Assert.assertEquals(ReturnCodeKeys.E014, actual);
     }
